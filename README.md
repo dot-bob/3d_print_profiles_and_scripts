@@ -1,2 +1,1 @@
-# 3d_print_profiles_and_scripts
-A collection of 3D print slicer profiles and gcode scripts
+A collection of my personal 3D print slicer profiles and gcode scripts
