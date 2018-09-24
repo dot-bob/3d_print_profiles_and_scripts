@@ -1,0 +1,16 @@
+; Stop GCode
+;@nosize ; repetier server
+G91 ; relative coordinates
+G1 Z1 E-1.5 F7200	; Lift and retract S3D
+;G1 Z1 E-{retraction_amount1} F7200; Lift and retract Ideamaker
+;G1 Z1 E-{retraction_amount} F7200; Lift and retract Cura
+;G1 Z1 E-<DESTRING> F7200	; Lift and retract Kisslicer
+M104 T0 S0 ;turn off heaters
+M104 T1 S0 ;turn off heaters
+M140 S0 ; turn off bed
+M106 S0 ; turn off part fan
+G90 ; absolute coordinates
+;G1 Z165 F9000 ;lower build plate or raise gantry
+G28 X Y ;move head out of the way
+M84 ; disable stepper motors
+;@size ; repetier server
