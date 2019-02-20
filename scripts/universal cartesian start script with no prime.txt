@@ -1,0 +1,28 @@
+; Start GCode
+; @nosize ; repetier server
+M117 Starting...
+M420 Z2 ; set fade leveling at 2mm (ok to send if no fade support)
+M107 ; start with the fan off
+G90 ; absolute positioning (most slicers)
+; G91 ; relative positioning
+M83 ; relative extruder
+; M82 ; absolute extruder (canvas cloud)
+
+T0 ; select first extruder
+
+; home and autolevel
+; G28 ; standard home all
+; G28 W ; home all without autolevel (prusa specific)
+; G80 ; probe bed (prusa specific)
+G28 O ; home all only if needed (marlin)
+G29 O ; probe bed only if needed (marlin)
+; M420 S1 ; activate mesh compensation for a stored mesh (marlin UBL ABL)
+
+; park for heat
+G1 X0 Y0 F3600 ; move to park location (stay clear of bed clips)
+G1 Z0.3 F1000; drop nozzle to bed to help restrict oozing
+
+; M900 K0.1 ; set linear advance k factor
+G1 Z0.6 F3600 ; // lift the head
+G1 Y10 X10 F4200 ; // quick move 70mm/s off prime before starting print
+; @size ; repetier server

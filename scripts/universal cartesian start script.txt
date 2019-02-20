@@ -1,66 +1,82 @@
-;Start GCode
-;@nosize ; repetier server
+; Start GCode
+; @nosize ; repetier server
 M117 Starting...
 M420 Z2 ; set fade leveling at 2mm (ok to send if no fade support)
 M107 ; start with the fan off
-G90 ; absolute coordinates
+G90 ; absolute positioning (most slicers)
+; G91 ; relative positioning
 M83 ; relative extruder
-;M82 ; absolute extruder
+; M82 ; absolute extruder (canvas cloud)
 
-; preheat enclosure
+T0 ; select first extruder
 
-; preheat
-M104 S140 T0 ; preheat extruder to speed up final heat
+; start preheat
+; M141 S60 ; heat enclosure
+
+; start heating bed
+; M190 S50 ; heat bed and wait if power supply can't keep up
 M140 S[bed0_temperature] ; start heating build platform S3D
-;M140 S{temperature_heatbed} ; start heating build platform Ideamaker
-;M140 S{material_bed_temperature_layer_0} ; start heating build platform Cura
-;M140 S<BED> ; start heating build platform Kisslicer
-;M140 S[first_layer_bed_temperature] ; start heating build platform Slic3r
+; M140 S{temperature_heatbed} ; start heating build platform Ideamaker
+; M140 S{material_bed_temperature_layer_0} ; start heating build platform Cura
+; M140 S<BED> ; start heating build platform Kisslicer
+; M140 S[first_layer_bed_temperature] ; start heating build platform Slic3r
 
-;M109 S160 ; wait for extruder preheat to non-oozing standy temp to prevent a blob crash during probe
+; M104 S160 T0 ; preheat extruder preheat to non-oozing temp and to prevent cooking of filament while bed heats
+; M109 S160 T0 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash during probe
+
+M104 S[extruder0_temperature] T0 ; preheat extruder S3D
+; M104 S{temperature_extruder1} T0 ; preheat extruder Ideamaker
+; M104 S{material_print_temperature_layer_0} T0 ; preheat extruder Cura
+; M104 S<TEMP> T0 ; preheat for extruder to heat Kisslicer
+; M104 S[temperature] T0 ; preheat extruder Slic3r
+
 
 ; home and autolevel
-G28 O; home all only if needed
-;G80 ; probe bed prusa
-G29 O; probe bed only if needed
-;M420 S1 ; activate mesh compensation for a stored mesh (UBL ABL)
+; G28 ; standard home all
+; G28 W ; home all without autolevel (prusa specific)
+; G80 ; probe bed (prusa specific)
+G28 O ; home all only if needed (marlin)
+G29 O ; probe bed only if needed (marlin)
+; M420 S1 ; activate mesh compensation for a stored mesh (marlin UBL ABL)
 
 ; park for preheat
-G1 X0 Y30 F3600 ; move to park location (clear of bed clips)
+; G1 X-3 Y30 F3600 ; move to park location (stay clear of bed clips)
+G1 X0 Y30 F3600 ; move to park location (stay clear of bed clips)
 G1 Z0.3 F1000; drop nozzle to bed to help restrict oozing
 
-; finish heating
+; final heating
 M190 S[bed0_temperature] ; wait for build platform to heat S3D
 M109 S[extruder0_temperature] T0 ; wait for extruder to heat S3D
-;M190 S{temperature_heatbed} ; wait for build platform to heat Ideamaker
-;M109 S{temperature_extruder1} T0 ; wait for extruder to heat Ideamaker
-;M190 S{material_bed_temperature_layer_0} ; wait for build platform to heat Cura
-;M109 S{material_print_temperature_layer_0} T0 ; wait for extruder to heat Cura
-;M190 S<BED> ; wait for build platform to heat Kisslicer
-;M109 S<TEMP> T0 ; wait for extruder to heat Kisslicer
-;M190 S[first_layer_bed_temperature] ; wait for build platform to heat Slic3r
-;M109 S[temperature] T0 ; wait for extruder to heat Slic3r
-
-G1 Z15 F3600 ; lift the head
-G1 Y50 F3600 ; move to prep location
+; M190 S{temperature_heatbed} ; wait for build platform to heat Ideamaker
+; M109 S{temperature_extruder1} T0 ; wait for extruder to heat Ideamaker
+; M190 S{material_bed_temperature_layer_0} ; wait for build platform to heat Cura
+; M109 S{material_print_temperature_layer_0} T0 ; wait for extruder to heat Cura
+; M190 S<BED> ; wait for build platform to heat Kisslicer
+; M109 S<TEMP> T0 ; wait for extruder to heat Kisslicer
+; M190 S[first_layer_bed_temperature] ; wait for build platform to heat Slic3r
+; M109 S[temperature] T0 ; wait for extruder to heat Slic3r
 
 ; perform wipe and prime
+G1 Z2 F3600 ; lift the head
+G1 Y50 F4200 ; move to prep location
+
 M117 Prime
 G92 E0 ; zero the extruded length
 G1 Z0.3 F1000
-G1 Y100 E9 F1000 ; prime
-G1 Y120 E13 F1000 ; prime
-G92 E0 ; zero extruder again
+G1 Y95 E9 F1000 ; prime
+G92 E0 ; zero the extruded length
+G1 Y115 E4 F1000 ; prime
+G92 E0 ; zero the extruded length
 
-G1 E-1.5 ; retract to prevent initial string S3D
-;G1 E-{retraction_amount1} ; retract to prevent initial string Ideamaker
-;G1 E-{retraction_amount} ; retract to prevent initial string Cura
-;G1 E-<DESTRING> ; retract to prevent initial string Kisslicer
-;G1 E-[retract_length] ; retract to prevent initial string Slic3r
+G1 E-0.5 ; retract to prevent initial string S3D
+; G1 E-{retraction_amount1} ; retract to prevent initial string Ideamaker
+; G1 E-{retraction_amount} ; retract to prevent initial string Cura
+; G1 E-<DESTRING> ; retract to prevent initial string Kisslicer
+; G1 E-[retract_length] ; retract to prevent initial string Slic3r
 
-;M900 K0.1 ; set linear advance k factor
-;<MATL> ; Kisslicer
+; M900 K0.1 ; set linear advance k factor
+; <MATL> ; Kisslicer
+G1 Y110 X10 F4200 ; // quick move 70mm/s off prime before starting print
 
-G1 Z10 ; Lift head before start
 M117 Printing...
-;@size ; repetier server
+; @size ; repetier server
