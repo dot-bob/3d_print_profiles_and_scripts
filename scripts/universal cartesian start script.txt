@@ -21,7 +21,7 @@ M140 S[bed0_temperature] ; start heating build platform S3D
 ; M140 S<BED> ; start heating build platform Kisslicer
 ; M140 S[first_layer_bed_temperature] ; start heating build platform Slic3r
 
-; M104 S160 T0 ; preheat extruder preheat to non-oozing temp and to prevent cooking of filament while bed heats
+; M104 S160 T0 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
 ; M109 S160 T0 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash during probe
 
 M104 S[extruder0_temperature] T0 ; preheat extruder S3D

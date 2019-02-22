@@ -10,6 +10,11 @@ M83 ; relative extruder
 
 T0 ; select first extruder
 
+; start preheat
+; M141 S50 ; heat enclosure
+M140 S50 ; preheat heat bed
+M104 S160 T0 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
+
 ; home and autolevel
 ; G28 ; standard home all
 ; G28 W ; home all without autolevel (prusa specific)
