@@ -11,9 +11,10 @@ M83 ; relative extruder
 T0 ; select first extruder
 
 ; start preheat
-; M141 S60 ; heat enclosure
+; M141 S50 ; heat enclosure
 M140 S60 ; preheat heat bed
-M104 S160 T0 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
+M109 S125 ; preheat nozzle before homing 
+M104 S160 T0 ; continue to preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
 
 ; home and autolevel
 ; G28 ; standard home all
@@ -24,6 +25,7 @@ G29 O ; probe bed only if needed (marlin)
 ; M420 S1 ; activate mesh compensation for a stored mesh (marlin UBL ABL)
 
 ; park for heat
+; G1 X-3 Y0 F3600 ; move to park location (prusa MK2/3 safe location)
 G1 X0 Y0 F3600 ; move to park location (stay clear of bed clips)
 G1 Z0.3 F1000; drop nozzle to bed to help restrict oozing
 
