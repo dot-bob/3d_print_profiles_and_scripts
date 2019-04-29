@@ -20,11 +20,11 @@ M140 S[bed0_temperature] ; start heating build platform S3D
 ; M140 S<BED> ; start heating build platform Kisslicer
 ; M140 S[first_layer_bed_temperature] ; start heating build platform Slic3r
 
-; M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
-; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash during probe
-; M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash during probe
+; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
 
-M104 S[extruder0_temperature] ; preheat extruder S3D
+; M104 S[extruder0_temperature] ; preheat extruder S3D
 ; M104 S{temperature_extruder1} ; preheat extruder Ideamaker
 ; M104 S{material_print_temperature_layer_0} ; preheat extruder Cura
 ; M104 S<TEMP> ; preheat for extruder to heat Kisslicer
@@ -37,10 +37,11 @@ M104 S[extruder0_temperature] ; preheat extruder S3D
 ; G80 ; probe bed (prusa specific)
 G28 O ; home all only if needed (marlin)
 G29 O ; probe bed only if needed (marlin)
-G29 S1 ; load stored mesh (ReprapFirmware)
+; G29 S1 ; load stored mesh (ReprapFirmware)
 ; M420 S1 ; activate mesh compensation for a stored mesh (marlin UBL ABL)
 
 ; park for preheat
+G1 Z5 ; lift to prevent nozzle drag
 ; G1 X-3 Y30 F3600 ; move to park location (stay clear of bed clips)
 G1 X0 Y30 F3600 ; move to park location (stay clear of bed clips)
 G1 Z0.3 F1000; drop nozzle to bed to help restrict oozing
