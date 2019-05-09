@@ -1,0 +1,61 @@
+; Start GCode
+; @nosize ; repetier server
+;M420 Z2 ; set fade leveling at 2mm (ok to send if no fade support)
+M107 ; start with the fan off
+G90 ; absolute positioning (most slicers)
+; G91 ; relative positioning
+; M83 ; relative extruder
+M82 ; absolute extruder (canvas cloud, Ideamaker)
+
+T0 ; select extruder
+
+; start preheat
+; M141 S60 ; heat enclosure
+
+; start heating bed
+; M190 S60 ; heat bed and wait if power supply can't keep up
+M140 S{temperature_heatbed} ; start heating build platform Ideamaker
+
+; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
+
+; M104 S{temperature_extruder1} ; preheat extruder Ideamaker
+
+; home and autolevel
+; G28 ; standard home all
+; G29 ; generic autolevel
+; G28 W ; home all without autolevel (prusa specific)
+; G80 ; probe bed (prusa specific)
+G28 O ; home all only if needed (marlin)
+G29 O ; probe bed only if needed (marlin)
+; G29 S1 ; load stored mesh (ReprapFirmware)
+; M420 S1 ; activate mesh compensation for a stored mesh (marlin UBL ABL)
+
+; park for preheat
+G1 Z5 ; lift to prevent nozzle drag
+; G1 X-3 Y30 F3600 ; move to park location (stay clear of bed clips)
+G1 X0 Y30 F3600 ; move to park location (stay clear of bed clips)
+G1 Z0.3 F1000; drop nozzle to bed to help restrict oozing
+
+; final heating
+M190 S{temperature_heatbed} ; wait for build platform to heat Ideamaker
+M109 S{temperature_extruder1} ; wait for extruder to heat Ideamaker
+
+; perform wipe and prime
+G1 Z2 F3600 ; lift the head
+G1 Y50 F4200 ; move to prep location
+
+G92 E0 ; zero the extruded length
+G1 Z0.3 F1000
+G1 Y95 E9 F1000 ; prime
+G92 E0 ; zero the extruded length
+G1 Y115 E4 F1000 ; prime
+G92 E0 ; zero the extruded length
+
+G1 E-0.5 ; retract to prevent initial string
+
+; M900 K0.1 ; set linear advance k factor
+G1 Y110 X10 F4200 ; // quick move 70mm/s off prime before starting print
+
+; @size ; repetier server

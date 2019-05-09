@@ -14,23 +14,13 @@ T0 ; select extruder
 
 ; start heating bed
 ; M190 S60 ; heat bed and wait if power supply can't keep up
-M140 S[bed0_temperature] ; start heating build platform S3D
-; M140 S{temperature_heatbed} ; start heating build platform Ideamaker
-; M140 S{material_bed_temperature_layer_0} ; start heating build platform Cura
-; M140 S<BED> ; start heating build platform Kisslicer
-; M140 S[first_layer_bed_temperature] ; start heating build platform Slic3r
-; M140 S{{bed_temp}} ; start heating build platform pathio
+M140 S<BED> ; start heating build platform Kisslicer
 
 ; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
 M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
 M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
 
-; M104 S[extruder0_temperature] ; preheat extruder S3D
-; M104 S{temperature_extruder1} ; preheat extruder Ideamaker
-; M104 S{material_print_temperature_layer_0} ; preheat extruder Cura
 ; M104 S<TEMP> ; preheat for extruder to heat Kisslicer
-; M104 S[temperature] ; preheat extruder Slic3r
-; M104 S{{nozzle_temp_0}} ;preheat extruder pathio
 
 ; home and autolevel
 ; G28 ; standard home all
@@ -49,18 +39,8 @@ G1 X0 Y30 F3600 ; move to park location (stay clear of bed clips)
 G1 Z0.3 F1000; drop nozzle to bed to help restrict oozing
 
 ; final heating
-M190 S[bed0_temperature] ; wait for build platform to heat S3D
-M109 S[extruder0_temperature] ; wait for extruder to heat S3D
-; M190 S{temperature_heatbed} ; wait for build platform to heat Ideamaker
-; M109 S{temperature_extruder1} ; wait for extruder to heat Ideamaker
-; M190 S{material_bed_temperature_layer_0} ; wait for build platform to heat Cura
-; M109 S{material_print_temperature_layer_0} ; wait for extruder to heat Cura
-; M190 S<BED> ; wait for build platform to heat Kisslicer
-; M109 S<TEMP> ; wait for extruder to heat Kisslicer
-; M190 S[first_layer_bed_temperature] ; wait for build platform to heat Slic3r
-; M109 S[temperature] ; wait for extruder to heat Slic3r
-; M190 S{{bed_temp}} ; wait for build platform to heat pathio
-; M109 S{{nozzle_temp_0}} ; wait for extruder to heat pathio
+M190 S<BED> ; wait for build platform to heat Kisslicer
+M109 S<TEMP> ; wait for extruder to heat Kisslicer
 
 ; perform wipe and prime
 G1 Z2 F3600 ; lift the head
@@ -73,11 +53,7 @@ G92 E0 ; zero the extruded length
 G1 Y115 E4 F1000 ; prime
 G92 E0 ; zero the extruded length
 
-G1 E-0.5 ; retract to prevent initial string S3D
-; G1 E-{retraction_amount1} ; retract to prevent initial string Ideamaker
-; G1 E-{retraction_amount} ; retract to prevent initial string Cura
-; G1 E-<DESTRING> ; retract to prevent initial string Kisslicer
-; G1 E-[retract_length] ; retract to prevent initial string Slic3r
+G1 E-0.5 ; retract to prevent initial string
 
 ; M900 K0.1 ; set linear advance k factor
 ; <MATL> ; Kisslicer
