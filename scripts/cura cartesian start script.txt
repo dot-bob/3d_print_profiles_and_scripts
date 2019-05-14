@@ -56,6 +56,7 @@ G92 E0 ; zero the extruded length
 G1 E-0.5 ; retract to prevent initial string
 
 ; M900 K0.1 ; set linear advance k factor
+; M572 D0 S0.1 ; RepRapFirmware pressure advance
 G1 Y110 X10 F4200 ; // quick move 70mm/s off prime before starting print
 
 ; @size ; repetier server

@@ -14,48 +14,48 @@ T0 ; select extruder
 
 ; start heating bed
 ; M190 S60 ; heat bed and wait if power supply can't keep up
-M140 S[first_layer_bed_temperature] ; start heating build platform Slic3r
+M140 S[bed0_temperature] ; start heating build platform S3D
 
 ; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
 M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
 M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
 
-; M104 S[temperature] ; preheat extruder Slic3r
+; M104 S[extruder0_temperature] ; preheat extruder S3D
 
 ; home and autolevel
-; G28 ; standard home all
+G28 ; standard home all
 ; G29 ; generic autolevel
 ; G28 W ; home all without autolevel (prusa specific)
 ; G80 ; probe bed (prusa specific)
-G28 O ; home all only if needed (marlin)
-G29 O ; probe bed only if needed (marlin)
-; G29 S1 ; load stored mesh (ReprapFirmware)
+; G28 O ; home all only if needed (marlin)
+; G29 O ; probe bed only if needed (marlin)
+G32 ; RepRapFirmware probe Z plane
+G29 S1 ; load stored mesh (ReprapFirmware)
 ; M420 S1 ; activate mesh compensation for a stored mesh (marlin UBL ABL)
 
 ; park for preheat
-G1 Z5 ; lift to prevent nozzle drag
-; G1 X-3 Y30 F3600 ; move to park location (stay clear of bed clips)
-G1 X0 Y30 F3600 ; move to park location (stay clear of bed clips)
-G1 Z0.3 F1000; drop nozzle to bed to help restrict oozing
+G1 Z20 F10000 ; rapid move to 20mm
+G1 X170  F10000 ; park location
+G1 Z0.3 F3000; drop nozzle to bed to help restrict oozing
 
 ; final heating
-M190 S[first_layer_bed_temperature] ; wait for build platform to heat Slic3r
-M109 S[temperature] ; wait for extruder to heat Slic3r
+M190 S[bed0_temperature] ; wait for build platform to heat S3D
+M109 S[extruder0_temperature] ; wait for extruder to heat S3D
 
 ; perform wipe and prime
 G1 Z2 F3600 ; lift the head
 G1 Y50 F4200 ; move to prep location
 
+; perform wipe and prime
 G92 E0 ; zero the extruded length
-G1 Z0.3 F1000
-G1 Y95 E9 F1000 ; prime
-G92 E0 ; zero the extruded length
-G1 Y115 E4 F1000 ; prime
-G92 E0 ; zero the extruded length
+G1 Z0.2 F3000
+G1 X145 Y-30 E11 F1000 ; prime
+G1 Y-60 E13 F1000 ; prime
+G92 E0 ; zero extruder again
 
 G1 E-0.5 ; retract to prevent initial string
 
 ; M900 K0.1 ; set linear advance k factor
-; M572 D0 S0.1 ; RepRapFirmware pressure advance
-G1 Y110 X10 F4200 ; // quick move 70mm/s off prime before starting print
+M572 D0 S0.1 ; RepRapFirmware pressure advance
+
 ; @size ; repetier server
