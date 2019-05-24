@@ -4,7 +4,7 @@
 M107 ; start with the fan off
 G90 ; absolute positioning (most slicers)
 ; G91 ; relative positioning
-M83 ; relative extruder
+; M83 ; relative extruder
 ; M82 ; absolute extruder (canvas cloud, Ideamaker)
 
 T0 ; select extruder
