@@ -1,0 +1,31 @@
+;Start GCode
+M107 ; start with the fan off
+G90 ; absolute coordinates
+M82 ; absolute extruder
+G92 X0 Y0 Z0 E0 ; Set all axis to 0
+
+M140 S{material_bed_temperature_layer_0} ; start heating build platform Cura
+M104 S{material_print_temperature_layer_0} T0 ; start heating extruder Cura
+
+G1 Y5 ; Move Y axis off the bed
+G28 X ; Home X axis
+G1 X0 Z5 F4000  ; Move X to park position
+M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+G28 Y ; Home Y axis
+G92 Y{blackbelt_z_offset}
+
+M190 S{material_bed_temperature_layer_0} ; wait for build platform to heat Cura
+M109 S{material_print_temperature_layer_0} T0 ; wait for extruder to heat Cura
+
+G1 Z20 Y1 E10 ; prime
+G1 E11 ; Extrude 1mm more
+G1 Z25 E18 F500   ; Move belt 5mm and keep extruding
+G92 E0 ; Zero the extruded length
+G1 E-0.5 F3900 ; Retract 65mm/s
+G1 Z30 ; Move the belt a bit further without extruding
+G92 Z0 ; Zero Belt
+G92 E0 ; Zero the extruded length
+G1 Y2 ; Lift the nozzle
+G1 X75 F4000 ; Move the print head to the center
+G1 Y{blackbelt_z_offset}    ; Move y to the belt
+
