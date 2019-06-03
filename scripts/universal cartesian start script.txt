@@ -74,16 +74,14 @@ G1 Y50 F4200 ; move to prep location
 
 G92 E0 ; zero the extruded length
 G1 Z0.3 F1000
-G1 Y95 E9 F1000 ; prime
+G1 Y90 E7 F1000 ; prime
 G92 E0 ; zero the extruded length
-G1 Y115 E4 F1000 ; prime
+G1 F1200 ; 20mm/s
+G1 Y140.000 E2.99341
+G1 F7200 ; 120mm/s
 G92 E0 ; zero the extruded length
-
-G1 E-0.5 ; retract to prevent initial string S3D
-; G1 E-{retraction_amount1} ; retract to prevent initial string Ideamaker
-; G1 E-{retraction_amount} ; retract to prevent initial string Cura
-; G1 E-<DESTRING> ; retract to prevent initial string Kisslicer
-; G1 E-[retract_length] ; retract to prevent initial string Slic3r
+G1 Y138 E-0.500 ; wipe
+G92 E0 ; zero the extruded length
 
 ; M900 K0.1 ; set linear advance k factor
 ; <MATL> ; Kisslicer

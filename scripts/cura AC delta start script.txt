@@ -1,0 +1,57 @@
+; Start GCode
+; @nosize ; repetier server
+;M420 Z2 ; set fade leveling at 2mm (ok to send if no fade support)
+M107 ; start with the fan off
+G90 ; absolute positioning (most slicers)
+; G91 ; relative positioning
+; M83 ; relative extruder
+; M82 ; absolute extruder (canvas cloud, Ideamaker)
+
+T0 ; select extruder
+
+; start preheat
+; M141 S60 ; heat enclosure
+
+; start heating bed
+; M190 S60 ; heat bed and wait if power supply can't keep up
+M140 S{material_bed_temperature_layer_0} ; start heating build platform Cura
+
+; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
+
+; M104 S{material_print_temperature_layer_0} ; preheat extruder Cura
+
+; home and autolevel
+G28 ; standard home all
+; G29 ; generic autolevel
+; G28 W ; home all without autolevel (prusa specific)
+; G80 ; probe bed (prusa specific)
+; G28 O ; home all only if needed (marlin)
+; G29 O ; probe bed only if needed (marlin)
+; G32 ; RepRapFirmware probe Z plane
+; G29 S1 ; load stored mesh (ReprapFirmware)
+; M420 S1 ; activate mesh compensation for a stored mesh (marlin UBL ABL)
+
+; park for preheat
+G1 Z20 F10000 ; rapid move to 20mm
+G1 X84  F10000 ; park location
+G1 Z0.3 F3000; drop nozzle to bed to help restrict oozing
+
+; final heating
+M190 S{material_bed_temperature_layer_0} ; wait for build platform to heat Cura
+M109 S{material_print_temperature_layer_0} ; wait for extruder to heat Cura
+
+; perform wipe and prime
+G92 E0 ; zero the extruded length
+G1 Z0.3 F2000
+G1 X77.5 Y27.5 E11 F1000 ; prime
+G1 X65.3 Y52 E16 F1000 ; prime
+G92 E0 ; zero extruder again
+
+G1 E-0.5 ; retract to prevent initial string
+
+; M900 K0.1 ; set linear advance k factor
+; M572 D0 S0.1 ; RepRapFirmware pressure advance
+
+; @size ; repetier server
