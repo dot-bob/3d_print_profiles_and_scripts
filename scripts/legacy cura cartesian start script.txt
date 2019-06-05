@@ -14,13 +14,13 @@ T0 ; select extruder
 
 ; start heating bed
 ; M190 S60 ; heat bed and wait if power supply can't keep up
-M140 S{BED} ; start heating build platform Cura
+M140 S{BED} ; start heating build platform Legacy Cura
 
 ; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
 M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
 M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
 
-; M104 S{TEMP0} ; preheat extruder Cura
+; M104 S{TEMP0} ; preheat extruder Legacy Cura
 
 ; home and autolevel
 ; G28 ; standard home all
@@ -39,8 +39,8 @@ G1 X0 Y30 F3600 ; move to park location (stay clear of bed clips)
 G1 Z0.3 F1000; drop nozzle to bed to help restrict oozing
 
 ; final heating
-M190 S{BED} ; wait for build platform to heat Cura
-M109 S{TEMP0} ; wait for extruder to heat Cura
+M190 S{BED} ; wait for build platform to heat Legacy Cura
+M109 S{TEMP0} ; wait for extruder to heat Legacy Cura
 
 ; perform wipe and prime
 G1 Z2 F3600 ; lift the head
@@ -48,12 +48,14 @@ G1 Y50 F4200 ; move to prep location
 
 G92 E0 ; zero the extruded length
 G1 Z0.3 F1000
-G1 Y95 E9 F1000 ; prime
+G1 Y90 E7 F1000 ; prime
 G92 E0 ; zero the extruded length
-G1 Y115 E4 F1000 ; prime
+G1 F1200 ; 20mm/s
+G1 Y140.000 E2.99341
+G1 F7200 ; 120mm/s
 G92 E0 ; zero the extruded length
-
-G1 E-0.5 ; retract to prevent initial string
+G1 Y138 E-0.500 ; wipe
+G92 E0 ; zero the extruded length
 
 ; M900 K0.1 ; set linear advance k factor
 ; M572 D0 S0.1 ; RepRapFirmware pressure advance

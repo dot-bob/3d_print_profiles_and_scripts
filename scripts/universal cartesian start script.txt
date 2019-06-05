@@ -21,7 +21,7 @@ M140 S[bed0_temperature] ; start heating build platform S3D
 ; M140 S[first_layer_bed_temperature] ; start heating build platform Slic3r
 ; M140 S{{bed_temp}} ; start heating build platform pathio
 ; M140 S<HBPTEMP> ; start heating build platform IceSL
-
+; M140 S{BED} ; start heating build platform Legacy Cura
 
 ; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
 M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
@@ -34,6 +34,7 @@ M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filame
 ; M104 S[temperature] ; preheat extruder Slic3r
 ; M104 S{{nozzle_temp_0}} ;preheat extruder pathio
 ; M104 S<TOOLTEMP> ; preheat extruder IceSL
+; M104 S{TEMP0} ; preheat extruder Legacy Cura
 
 ; home and autolevel
 ; G28 ; standard home all
@@ -66,7 +67,8 @@ M109 S[extruder0_temperature] ; wait for extruder to heat S3D
 ; M109 S{{nozzle_temp_0}} ; wait for extruder to heat pathio
 ; M190 S<HBPTEMP>  ; wait for build platform to heat IceSL
 ; M109 S<TOOLTEMP> ; wait for extruder to heat IceSL
-
+; M190 S{BED} ; wait for build platform to heat Legacy Cura
+; M109 S{TEMP0} ; wait for extruder to heat Legacy Cura
 
 ; perform wipe and prime
 G1 Z2 F3600 ; lift the head

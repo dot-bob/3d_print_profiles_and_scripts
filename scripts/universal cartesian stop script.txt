@@ -1,8 +1,7 @@
 ; Stop GCode
 ; @nosize ; repetier server
 G91 ; relative coordinates
-G1 Z1 E-0.5 F7200	; Lift and retract S3D
-; G1 Z1 E-{retraction_amount1} F7200; Lift and retract Ideamaker
+; G1 Z1 E-0.5 F7200	; Lift and retract ; note some slicers will retract before running the end script (ideamaker)
 ; G1 Z1 E-{retraction_amount} F7200; Lift and retract Cura
 ; G1 Z1 E-<DESTRING> F7200	; Lift and retract Kisslicer
 ; G1 E-[retract_length] ; retract to prevent initial string Slic3r
