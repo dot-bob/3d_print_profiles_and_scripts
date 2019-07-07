@@ -16,9 +16,9 @@ T0 ; select extruder
 ; M190 S60 ; heat bed and wait if power supply can't keep up
 M140 S[bed0_temperature] ; start heating build platform S3D
 
-; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
-M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
-M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
+M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+; M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+; M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
 
 ; M104 S[extruder0_temperature] ; preheat extruder S3D
 
@@ -60,4 +60,5 @@ G92 E0 ; zero the extruded length
 ; M900 K0.1 ; set linear advance k factor
 ; M572 D0 S0.1 ; RepRapFirmware pressure advance
 G1 Y110 X10 F4200 ; // quick move 70mm/s off prime before starting print
+
 ; @size ; repetier server

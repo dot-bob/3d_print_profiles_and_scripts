@@ -16,9 +16,9 @@ T0 ; select extruder
 ; M190 S60 ; heat bed and wait if power supply can't keep up
 M140 S[first_layer_bed_temperature] ; start heating build platform Slic3r
 
-; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
-M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
-M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
+M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+; M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+; M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
 
 ; M104 S[temperature] ; preheat extruder Slic3r
 
@@ -46,7 +46,6 @@ M109 S[temperature] ; wait for extruder to heat Slic3r
 G1 Z2 F3600 ; lift the head
 G1 Y50 F4200 ; move to prep location
 
-; perform wipe and prime
 G92 E0 ; zero the extruded length
 G1 Z0.2 F3000
 G1 X145 Y-30 E11 F1000 ; prime

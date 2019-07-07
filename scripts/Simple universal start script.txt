@@ -14,10 +14,12 @@ T0 ; select extruder
 
 ; start heating bed
 ; M190 S60 ; heat bed and wait if power supply can't keep up
+
 M140 S60 ; preheat heat bed
-; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
-M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
-M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
+
+M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+; M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+; M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
 
 
 ; home and autolevel

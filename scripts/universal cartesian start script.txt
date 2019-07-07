@@ -23,9 +23,9 @@ M140 S[bed0_temperature] ; start heating build platform S3D
 ; M140 S<HBPTEMP> ; start heating build platform IceSL
 ; M140 S{BED} ; start heating build platform Legacy Cura
 
-; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
-M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
-M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
+M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+; M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+; M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
 
 ; M104 S[extruder0_temperature] ; preheat extruder S3D
 ; M104 S{temperature_extruder1} ; preheat extruder Ideamaker

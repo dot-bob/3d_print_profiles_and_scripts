@@ -4,8 +4,8 @@
 M107 ; start with the fan off
 G90 ; absolute positioning (most slicers)
 ; G91 ; relative positioning
-M83 ; relative extruder
-; M82 ; absolute extruder (canvas cloud, Ideamaker)
+; M83 ; relative extruder
+M82 ; absolute extruder (canvas cloud, Ideamaker)
 
 T0 ; select extruder
 
@@ -16,9 +16,9 @@ T0 ; select extruder
 ; M190 S60 ; heat bed and wait if power supply can't keep up
 M140 S<HBPTEMP> ; start heating build platform IceSL
 
-; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
-M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
-M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
+M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+; M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+; M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
 
 ; M104 S<TOOLTEMP> ; preheat extruder IceSL
 

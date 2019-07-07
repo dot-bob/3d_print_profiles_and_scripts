@@ -18,9 +18,9 @@ T0 ; select extruder
 M140 S{{bed_temp}} ; start heating build platform pathio
 {% endif %}
 
-; M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
-M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
-M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
+M109 S160 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+; M109 S125 ; wait for extruder preheat to non-oozing standby temp to prevent a blob crash
+; M104 S160 ; preheat extruder to non-oozing temp and to prevent cooking of filament while bed heats
 
 {% if automaticNozzleTemperatureControl %}
 ; M104 S{{nozzle_temp_0}} ; preheat extruder pathio
